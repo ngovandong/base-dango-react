@@ -1,0 +1,87 @@
+.home-page {
+    box-sizing: content-box;
+    margin: 60px;
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+
+        .left {
+            width: 500px;
+
+            h1 {
+                font-size: 42px;
+                font-weight: 400;
+            }
+
+            p {
+                margin: 30px 0;
+            }
+
+            .search {
+                width: 300px;
+                height: 42px;
+                padding: 8px 10px;
+                background: #FFFFFF;
+                border: 1px solid $home-gray;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .search_icon {
+                    color: $home-gray;
+                    width: 10%;
+                    padding-top: 4px;
+                    margin-left: 4px;
+                }
+
+                .search_input {
+                    width: 80%;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 24px;
+
+                    color: black;
+                    border: none;
+                }
+            }
+        }
+
+        .right {
+            width: 200px;
+            display: flex;
+            flex-direction: row-reverse;
+
+            .add-workspace-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: black;
+                width: 140px;
+                height: 40px;
+                color: white;
+                padding: 10px 6px;
+                border-radius: 5px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .myworkspace {
+        .workspace-container {
+            display: flex;
+            column-gap: 30px;
+            row-gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: 400;
+            margin: 15px 0;
+        }
+    }
+}
