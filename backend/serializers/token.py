@@ -17,7 +17,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         if not self.user.is_validated_email:
-            raise serializers.ValidationError({"errors": "The account hasn't been validated yet"})
+            raise serializers.ValidationError({"errors": "Please activate your email account!"})
         return data
 
 

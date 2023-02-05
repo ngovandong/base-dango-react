@@ -1,7 +1,7 @@
-import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { useGoogleOneTapLogin } from "@react-oauth/google";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setToken } from "../app/store/authSlice";
+import { setError, setToken } from "../app/store/authSlice";
 import authService from "../api-service/authService";
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -13,13 +13,25 @@ function CustomPopupGoogleLoginBT() {
     "https://www.googleapis.com/auth/userinfo.profile",
   ].join(" ");
   const handleUserInit = (res) => {
-    console.log(res.ok);
-    console.log(res);
-    const { access, refresh } = res.data;
-    dispatch(setToken({ access, refresh }));
+    if (res.data) {
+      const { access, refresh } = res.data;
+      dispatch(setToken({ access, refresh }));
+    } else {
+      const data = res.response.data;
+      if (data.message) {
+        throw new Error(data.message);
+      } else {
+        const data = res.response.data;
+        const firstKeyError = Object.keys(data)[0];
+        const error = Array.isArray(data[firstKeyError])
+          ? data[firstKeyError][0]
+          : data[firstKeyError];
+        const errorMessage = firstKeyError + ": " + error;
+        dispatch(setError(errorMessage));
+      }
+    }
   };
   const onPopupSuccess = (response) => {
-    console.log(response);
     const id_token = response.credential;
 
     authService
@@ -49,6 +61,7 @@ function CustomPopupGoogleLoginBT() {
     onError: () => {
       console.log("Login Failed");
     },
+    auto_select: true,
   });
   return (
     <button onClick={openGoogleLoginPage} className="loginBT">

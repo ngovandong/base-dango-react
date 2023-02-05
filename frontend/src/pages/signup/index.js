@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+
 import authService from "../../api-service/authService";
+import cloudinaryService from "../../api-service/cloudinaryService";
+
 function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [gender, setGender] = useState(1);
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
   const [error, setError] = useState("");
@@ -14,30 +17,40 @@ function SignUp() {
 
   const handle_submit = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       setError("Password not match!");
     } else {
+      let url = "";
+      if (avatar) {
+        url = await cloudinaryService.uploadImage(avatar);
+      }
       const user = {
         first_name: firstName,
         last_name: lastName,
-        // gender,
         email,
         password,
-        confirm_password: confirmPassword,
         name: firstName + " " + lastName,
-        // avatar
+        image_url: url,
       };
       try {
         const res = await authService.signUp(user);
         if (res.status === 201) {
-          navigate("/login");
+          const info = `We've sent a verification link to ${email}. Please click it to activate your account.`;
+          navigate({
+            pathname: "/login",
+            search: createSearchParams({
+              info,
+            }).toString(),
+          });
         } else {
-          const data = res.data;
-          let errorMessage = "";
-          for (const key in data) {
-            errorMessage +=
-              key[0].toUpperCase() + key.slice(1) + ": " + data[key][0] + " ";
-          }
+          // handle error
+          const data = res.response.data;
+          const firstKeyError = Object.keys(data)[0];
+          const error = Array.isArray(data[firstKeyError])
+            ? data[firstKeyError][0]
+            : data[firstKeyError];
+          const errorMessage = firstKeyError + ": " + error;
           setError(errorMessage);
         }
       } catch (error) {
@@ -47,7 +60,16 @@ function SignUp() {
   };
   return (
     <div>
-      {/* {error && <Alert severity="error">{error}</Alert>} */}
+      {error && (
+        <Alert
+          onClose={() => {
+            setError("");
+          }}
+          severity="error"
+        >
+          {error}
+        </Alert>
+      )}
       <div className="form">
         <form onSubmit={handle_submit}>
           <h1>Sign up</h1>
@@ -86,28 +108,20 @@ function SignUp() {
           <br />
 
           <label>Avatar</label>
-          <input
-            type="text"
-            onChange={(e) => setAvatar(e.target.value)}
-            name="avatar"
-            placeholder="Enter your Avatar url..."
-            value={avatar}
-            required
-          />
-          <br />
+          <label htmlFor="custom-file-upload" className="filupp">
+            <span className="filupp-file-name">
+              {avatar ? avatar.name : "Browse Files"}
+            </span>
+            <input
+              type="file"
+              name="attachment-file"
+              id="custom-file-upload"
+              required
+              onChange={(e) => setAvatar(e.target.files[0])}
+              accept="image/*"
+            />
+          </label>
 
-          <label>Gender</label>
-          <select
-            value={gender}
-            onChange={(e) => {
-              setGender(parseInt(e.target.value));
-            }}
-          >
-            <option value={1}>Male</option>
-            <option value={2}>Female</option>
-            <option value={3}>Other</option>
-          </select>
-          <br />
           <label>Password</label>
           <input
             type="password"

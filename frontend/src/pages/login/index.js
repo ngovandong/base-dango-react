@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Alert from "@mui/material/Alert";
 import {
   login,
   selectToken,
   selectError,
   setToken,
+  setError,
 } from "../../app/store/authSlice";
 import GoogleLoginBT from "../../components/GoogleLoginBT";
 function Login() {
@@ -15,10 +17,12 @@ function Login() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const error = useSelector(selectError);
+  const [redirectError, setRedirectError] = useState();
+  const [redirectInfo, setRedirectInfo] = useState();
   let [searchParams, _] = useSearchParams();
   const handle_submit = async (e) => {
     e.preventDefault();
-    dispatch(login({ username: email, password }));
+    dispatch(login({ email, password }));
   };
 
   useEffect(() => {
@@ -28,6 +32,16 @@ function Login() {
   }, [token]);
 
   useEffect(() => {
+    const info = searchParams.get("info");
+    if (info) {
+      setRedirectInfo(info);
+    }
+
+    const errorMessage = searchParams.get("error");
+    if (errorMessage) {
+      setRedirectError(errorMessage);
+    }
+
     const access = searchParams.get("access");
     const refresh = searchParams.get("refresh");
     if (access && refresh) {
@@ -37,7 +51,26 @@ function Login() {
 
   return (
     <div className="login-page">
-      {/* {error && <Alert severity="error">{error}</Alert>} */}
+      {error && (
+        <Alert
+          severity="error"
+          onClose={() => {
+            dispatch(setError(""));
+          }}
+        >
+          {error}
+        </Alert>
+      )}
+      {redirectError && (
+        <Alert severity="error" onClose={() => setRedirectError("")}>
+          {redirectError}
+        </Alert>
+      )}
+      {redirectInfo && (
+        <Alert severity="info" onClose={() => setRedirectInfo("")}>
+          {redirectInfo}
+        </Alert>
+      )}
       <div className="form">
         <form onSubmit={handle_submit}>
           <h1>Log in</h1>

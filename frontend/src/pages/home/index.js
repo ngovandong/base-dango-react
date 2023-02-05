@@ -11,6 +11,7 @@ function Home() {
       navigate(`workspaces/${currentWorkspace}`);
     }
   }, []);
+
   return (
     <div className="home-page">
       <div className="header-container">
@@ -22,8 +23,7 @@ function Home() {
               className="search_input"
               placeholder="Search your course here"
             />
-            <div className="search_icon">
-            </div>
+            <div className="search_icon"></div>
           </div>
         </div>
         <div className="right">
@@ -34,8 +34,7 @@ function Home() {
       </div>
       <div className="myworkspace">
         <p className="title">My Course</p>
-        <div className="workspace-container">
-        </div>
+        <div className="workspace-container"></div>
       </div>
       <button color="inherit" onClick={() => dispatch(logout())}>
         Logout

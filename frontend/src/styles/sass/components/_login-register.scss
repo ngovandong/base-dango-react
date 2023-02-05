@@ -67,8 +67,8 @@
             margin-top: 5px;
         }
 
-        select{
-            @include notion_input; 
+        select {
+            @include notion_input;
             padding: 8px;
             width: 100%;
             border-radius: 3px;
@@ -78,11 +78,71 @@
 
         }
 
+        $trimColor: rgb(235, 87, 87);
+
+        .filupp>input[type="file"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .filupp {
+            position: relative;
+            display: block;
+            cursor: pointer;
+
+            @include notion_input;
+            width: 100%;
+            padding: 8px;
+            border-radius: 3px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            margin-top: 3px;
+        }
+
+        .filupp:before {
+            content: "";
+            position: absolute;
+            top: 0.7em;
+            right: 0.58em;
+            width: 1.2em;
+            height: 1em;
+            border: 2.6px solid $trimColor;
+            border-top: 0;
+            text-align: center;
+        }
+
+
+        .filupp:after {
+            content: "\279c";
+            position: absolute;
+            transform: rotate(-90deg);
+            top: .6em;
+            right: .55em;
+            font-size: 1.35em;
+            color: $trimColor;
+            line-height: 0;
+        }
+
+        .filupp-file-name {
+            color: $medium-gray;
+            width: 75%;
+            text-overflow: ellipsis;
+            line-height: 100%;
+        }
+
+
         .bottom-text {
             text-align: center;
             margin-top: 30px;
 
-            p, a {
+            p,
+            a {
                 display: inline;
                 margin-right: 5px;
                 color: rgba($dark-gray, 0.6);
@@ -95,7 +155,7 @@
         }
 
 
-        .loginBT{
+        .loginBT {
             border-radius: 3px;
             margin-bottom: 8px;
             margin-top: 15px;
@@ -112,18 +172,20 @@
             &:hover {
                 background-color: rgba(242, 241, 238, 0.6);
             }
-            .buttonText{
+
+            .buttonText {
                 color: rgb(17, 17, 17);
                 margin-left: 5px;
                 font-weight: 700;
             }
-            .icon{
+
+            .icon {
                 height: 20px;
             }
         }
     }
-    
-    .devicer{
+
+    .devicer {
         margin: 20px 0 20px;
         background-color: rgba(55, 53, 47, 0.16);
         height: 1px;

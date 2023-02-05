@@ -1,18 +1,10 @@
 import React from "react";
-import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import SignUp from "../pages/signup";
 import NotFound from "../pages/notfound";
-import PrivateRoute from "../utils/PrivateRoute";
-
-function PrivateContainer() {
-  return (
-    <PrivateRoute>
-      <Outlet />
-    </PrivateRoute>
-  );
-}
+import PrivateContainer from "../components/privateContainer";
 
 function App() {
   return (

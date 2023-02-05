@@ -7,20 +7,11 @@ from ..models import User
 
 class UserSerializer(serializers.ModelSerializer):
     password = PasswordField()
-    confirm_password = PasswordField()
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'password', 'confirm_password', 'first_name', 'last_name', 'image_url']
+        fields = ['id', 'email', 'name', 'password', 'first_name', 'last_name', 'image_url']
 
-    def validate(self, attrs):
-        if attrs['password'] != attrs['confirm_password']:
-            raise serializers.ValidationError(
-                {"confirm_password": "Confirm password not match"}
-            )
-        attrs.pop('confirm_password')
-
-        return attrs
 
     # def validate_email(self, value):
     #     if not MailService.validate_email(value):
