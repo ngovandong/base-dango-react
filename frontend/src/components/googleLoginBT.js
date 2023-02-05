@@ -61,7 +61,6 @@ function CustomPopupGoogleLoginBT() {
     onError: () => {
       console.log("Login Failed");
     },
-    auto_select: true,
   });
   return (
     <button onClick={openGoogleLoginPage} className="loginBT">

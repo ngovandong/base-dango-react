@@ -4,13 +4,13 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import SignUp from "../pages/signup";
 import NotFound from "../pages/notfound";
-import PrivateContainer from "../components/privateContainer";
+import MainContainer from "../components/mainContainer";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<PrivateContainer />}>
+        <Route path="" element={<MainContainer />}>
           <Route path="" element={<Home />} />
           {/* <Route path="workspaces/:workspaceId" element={<Workspace />}>
             <Route path="" element={<PageNotExist />} />

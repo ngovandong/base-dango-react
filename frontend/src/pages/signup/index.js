@@ -59,7 +59,7 @@ function SignUp() {
     }
   };
   return (
-    <div>
+    <div className="signup-login-page">
       {error && (
         <Alert
           onClose={() => {
