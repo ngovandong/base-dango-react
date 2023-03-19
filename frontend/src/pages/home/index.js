@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout, selectCurrentWorkspace } from "../../app/store/authSlice";
+import { logout, selectCurrentWorkspace } from "@app/store/authSlice";
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

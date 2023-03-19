@@ -1,12 +1,12 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Home from "../pages/home";
-import Login from "../pages/login";
-import SignUp from "../pages/signup";
-import NotFound from "../pages/notfound";
-import MainContainer from "../components/mainContainer";
-import StudySet from "../pages/studySet";
-import Recent from "../pages/recent";
+import Home from "@pages/home";
+import Login from "@pages/login";
+import SignUp from "@pages/signup";
+import NotFound from "@pages/notfound";
+import MainContainer from "@components/mainContainer";
+import StudySet from "@pages/studySet";
+import Recent from "@pages/recent";
 
 function App() {
   return (
