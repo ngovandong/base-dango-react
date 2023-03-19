@@ -1,2 +1,2 @@
-from .user import UserSerializer, GoogleUserSerializer, SetPasswordSerializer, GoogleCallbackSerializer
+from .user import UserSerializer, GoogleUserSerializer, SetPasswordSerializer, GoogleCallbackSerializer, ChangePasswordSerializer
 from .token import CustomTokenObtainPairSerializer, AcctiveAccountSerializer
